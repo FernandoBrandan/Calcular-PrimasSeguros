@@ -1,11 +1,6 @@
 
 https://api-sandbox.fedpat.com.ar/documentacion-cotizador.html#tag/Cotizacion-auto/operation/cotizarPorApi
 
-Te ayudo con los parámetros conceptuales para calcular primas de seguros de auto en Argentina. Es cierto que es un servicio muy especializado que requiere conocimiento actuarial profundo.Basándome en la información encontrada y mi conocimiento sobre seguros de auto en Argentina, te explico los parámetros conceptuales clave para calcular primas:
-
-## Marco Legal y Regulatorio
-
-En Argentina, todo vehículo tiene que estar asegurado contra terceros para que la empresa aseguradora cubra los daños en caso de accidente de tránsito. La Superintendencia de Seguros de la Nación (SSN) regula el sector y requiere opinión actuarial que avale la suficiencia técnica de primas y que no sean abusivas ni discriminatorias.
 
 ## Parámetros Principales para Calcular Primas
 
