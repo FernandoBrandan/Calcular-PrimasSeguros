@@ -1,41 +1,82 @@
+# Calculadora de Primas de Seguros
 
-https://api-sandbox.fedpat.com.ar/documentacion-cotizador.html#tag/Cotizacion-auto/operation/cotizarPorApi
+Sistema para el cálculo de primas de seguros utilizando el patrón Builder, diseñado para ser extensible y manejar diferentes tipos de seguros (automotor, hogar, vida).
 
+## Características
 
-## Parámetros Principales para Calcular Primas
+- **Arquitectura modular**: Implementa el patrón Builder para una construcción flexible de objetos
+- **Extensible**: Preparado para manejar múltiples tipos de seguros
+- **Cálculos precisos**: Incluye factores de riesgo, gastos operativos e impuestos
+- **TypeScript**: Completamente tipado para mayor seguridad en el desarrollo
 
-### 1. **Datos del Vehículo**
-- **Marca y modelo**: Afecta directamente el costo de reparación y probabilidad de robo
-- **Año del vehículo**: Determina depreciación y valor de mercado
-- **Valor asegurado**: Base para calcular coberturas
-- **Tipo de uso**: Particular, comercial, taxi, etc.
-- **Cilindrada del motor**: Mayor cilindrada = mayor riesgo
-- **Tipo de combustible**: Nafta, diesel, GNC, eléctrico
+## API
 
-### 2. **Datos del Conductor/Asegurado**
-- **Edad**: Conductores jóvenes (18-25) y mayores (+65) tienen primas más altas
-- **Sexo**: Estadísticamente los hombres tienen más siniestros
-- **Antigüedad de licencia**: Más experiencia = menor riesgo
-- **Historial de siniestros**: Factor crítico - cada siniestro previo aumenta la prima
-- **Estado civil**: Casados estadísticamente tienen menos siniestros
-- **Ocupación**: Ciertas profesiones consideradas de mayor/menor riesgo
+### PrimaBuilder
 
-### 3. **Datos Geográficos**
-- **Código postal de circulación**: Zona de mayor riesgo de robo/accidentes
-- **Lugar de guardado**: Cochera cubierta vs. calle
-- **Zona de trabajo**: Si difiere del domicilio
+Calculadora principal:
 
-### 4. **Coberturas Elegidas**
-- **Responsabilidad Civil**: Obligatorio por ley
-- **Daño Parcial**: Cubre reparaciones por choques, granizo, etc.
-- **Robo/Hurto Total**: Muy común en Argentina
-- **Incendio**: Riesgo específico
-- **Cristales**: Cobertura adicional
-- **Franquicia elegida**: A menor franquicia, mayor prima
+### BaseBuilder
 
-### 5. **Factores de Riesgo Específicos**
-- **Kilometraje anual**: Mayor uso = mayor exposición
-- **Conductor habitual**: Si hay conductores adicionales
-- **Sistemas de seguridad**: Alarmas, GPS, etc. pueden dar descuentos
-- **Uso nocturno**: Circulación en horarios de mayor riesgo
- 
+Configura los parámetros base del seguro:
+
+- `setGastosAdmin(porcentaje: string)`: Gastos administrativos
+- `setComisionBroker(porcentaje: string)`: Comisión del broker
+- `setIVA(porcentaje: string)`: Impuesto al Valor Agregado
+- `setImpuestoSellos(porcentaje: string)`: Impuesto a los sellos
+- `setTasaBase(tipo: TipoSeguro, nivel: NivelCobertura)`: Configura la tasa base
+
+### CustomerBuilder
+
+Construye el perfil del cliente:
+
+- `setEdad(edad: number)`: Edad del asegurado
+- `setSexo(sexo: string)`: Género ('masculino' | 'femenino')
+- `setEstadoCivil(estado: string)`: Estado civil
+- `setOcupacion(ocupacion: string)`: Ocupación del cliente
+- `setAntiguedadLicencia(anos: number)`: Años con licencia de conducir
+- `setSiniestros(cantidad: number)`: Cantidad de siniestros previos
+- `setZonaRiesgo(zona: string)`: Nivel de riesgo de la zona ('bajo' | 'medio' | 'alto')
+
+### CarBuilder
+
+Construye los datos del vehículo:
+
+- `setMarca(marca: string)`: Marca del vehículo
+- `setModelo(modelo: string)`: Modelo del vehículo
+- `setAnio(anio: number)`: Año de fabricación
+- `setUso(uso: string)`: Tipo de uso ('particular' | 'comercial')
+- `setCilindrada(cc: number)`: Cilindrada del motor
+- `setTipoCombustible(tipo: string)`: Tipo de combustible
+- `setSeguridadAlarm(tiene: boolean)`: Si tiene alarma de seguridad
+
+## Enums Disponibles
+
+### TipoSeguro
+- `AUTO`: Seguro automotor
+- `HOGAR`: Seguro de hogar (pendiente implementación)
+- `VIDA`: Seguro de vida (pendiente implementación)
+
+### NivelCobertura
+- `BASICO`: Cobertura básica
+- `INTERMEDIO`: Cobertura intermedia
+- `COMPLETO`: Cobertura completa
+
+### Extensibilidad
+
+Para agregar nuevos tipos de seguro:
+
+1. Crear el builder correspondiente en `insurance/`
+2. Implementar la interfaz de cálculo de factores
+3. Agregar el tipo al enum `ObjetoAsegurado`
+4. Configurar las tasas base en `BaseBuilder`
+
+# Scripts disponibles
+
+npm install 
+npm run build           - Compila TypeScript a JavaScript
+npm run dev             - Ejecuta en modo desarrollo con ts-node
+npm start               - Ejecuta la versión compilada
+npm test                - Ejecuta los tests con Jest
+npm run test:watch      - Ejecuta tests en modo watch
+npm run test:coverage   - Genera reporte de cobertura
+
