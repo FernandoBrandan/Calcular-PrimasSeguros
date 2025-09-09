@@ -1,5 +1,5 @@
-import { recargos, divisores, PaymentFrequency } from '../config'
-import { CoverageLevel, FACTORS_TASA_BASE, InsuranceType } from "../config"
+import { recargos, divisores, PaymentFrequency } from '../config/config'
+import { CoverageLevel, FACTORS_TASA_BASE, InsuranceType } from "../config/config"
 
 export interface IOperatingExpenses {
     admin_expenses: string
