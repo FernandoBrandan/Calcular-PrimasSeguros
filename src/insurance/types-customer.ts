@@ -12,7 +12,7 @@ const FACTORES_EDAD: Record<Edad, number> = {
 
 type Sexo = 'masculino' | 'femenino'
 const FACTORES_SEXO: Record<Sexo, number> = {
-    'masculino': 1.2,   //  Hombres tienen más siniestros
+    'masculino': 1.2,   //  Hombres tienen más siniestros 
     'femenino': 0.8     //  Mujeres tienen menos siniestros
 }
 
@@ -21,7 +21,7 @@ const FACTORES_ESTADO_CIVIL: Record<EstadoCivil, number> = {
     'soltero': 1.2,     //  Solteros tienen más siniestros
     'casado': 0.9,      //  Casados tienen menos siniestros
     'divorciado': 1.1,  //  Divorciados tienen riesgo moderado
-    'viudo': 1.0        //  Viudos riesgo base
+    'viudo': 1.0,      //  Viudos riesgo base 
 }
 
 type Ocupacion = 'empleado' | 'profesional' | 'comerciante' | 'independiente' | 'estudiante'
@@ -30,7 +30,7 @@ const FACTORES_OCUPACION: Record<Ocupacion, number> = {
     'profesional': 0.9,     // Riesgo bajo
     'comerciante': 1.1,     // Riesgo moderado
     'independiente': 1.2,   // Riesgo alto
-    'estudiante': 1.3       // Riesgo muy alto
+    'estudiante': 1.3,      // Riesgo muy alto 
 }
 
 //  Factor por antigüedad de licencia
@@ -61,6 +61,17 @@ const FACTORES_ZONA: Record<Zona, number> = {
     'muy_alto': 1.8    // Zonas de alto riesgo
 }
 
+/**
+ * Opciones: 
+ * Customer:
+ * Antiguedad de cliente
+ * Tipo : Debito credito
+ *
+ * Auto:
+ * gps
+ * cochera
+ */
+
 export interface CustomerInsurance {
     readonly edad: Edad
     readonly sexo: Sexo
@@ -81,7 +92,7 @@ export interface CustomerInsurance {
     setSiniestros(siniestros: Siniestros): this
     setZonaRiesgo(zonaRiesgo: Zona): this
 
-    calcular(): number
+    calculate(): number
 }
 
 export class CustomerBuilder implements CustomerInsurance {
@@ -145,14 +156,14 @@ export class CustomerBuilder implements CustomerInsurance {
         return this
     }
 
-    calcular(): number {
+    calculate(): number {
         let factor = 1.0
-        factor *= FACTORES_EDAD[this.edad] || 1.0
-        factor *= FACTORES_SEXO[this.sexo] || 1.0
-        factor *= FACTORES_ESTADO_CIVIL[this.estadoCivil] || 1.0
-        factor *= FACTORES_OCUPACION[this.ocupacion] || 1.0
-        factor *= FACTORES_ANTIGUEDAD[this.antiguedadLicencia] || 1.0
-        factor *= FACTORES_SINIESTRO[this.siniestros] || 1.0
+        factor *= FACTORES_EDAD[this.edad] ?? 1.0
+        factor *= FACTORES_SEXO[this.sexo] ?? 1.0
+        factor *= FACTORES_ESTADO_CIVIL[this.estadoCivil] ?? 1.0
+        factor *= FACTORES_OCUPACION[this.ocupacion] ?? 1.0
+        factor *= FACTORES_ANTIGUEDAD[this.antiguedadLicencia] ?? 1.0
+        factor *= FACTORES_SINIESTRO[this.siniestros] ?? 1.0
         factor *= FACTORES_ZONA[this.zonaRiesgo] || 1.0
         return Math.round(factor * 100) / 100
     }

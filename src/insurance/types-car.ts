@@ -31,28 +31,33 @@ const FACTOR_COMBUSTIBLE: Record<FactorCombustible, number> = {
 }
 
 export interface CarInsurance {
-    readonly tipo: "auto"
-    readonly marca: string
-    readonly modelo: string
-    readonly anio: FactorAnio
-    readonly uso: FactorUso
-    readonly cilindrada: FactorCilindrada
-    readonly tipoCombustible: FactorCombustible
-    readonly seguridad_Alarm: boolean
+    // licensePlate: string
+    // chassisNumber: string
+
+    value: number
+    getValorAsegurado(): number
+
+    readonly type: "auto"
+    readonly brand: string
+    readonly model: string
+    readonly year: FactorAnio
+    readonly usage: FactorUso
+    readonly engineCapacity: FactorCilindrada
+    readonly fuelType: FactorCombustible
+    readonly hasAlarm: boolean
 
     obtenerAnio(anio: number): FactorAnio
     obtenerCilindrada(cilindrada: number): FactorCilindrada
 
-    setMarca(marca: string): this
-    setModelo(modelo: string): this
-    setAnio(anio: number): this
-    setUso(uso: FactorUso): this
-    setCilindrada(cilindrada: number): this
-    setTipoCombustible(tipoCombustible: FactorCombustible): this
-    setSeguridadAlarm(seguridad_Alarm: boolean): this
+    setBrand(brand: string): this
+    setModel(model: string): this
+    setYear(year: number): this
+    setUsage(usage: FactorUso): this
+    setEngineCapacity(engineCapacity: number): this
+    setFuelType(fuelType: FactorCombustible): this
+    setHasAlarm(hasAlarm: boolean): this
 
-    calcular(): number
-
+    calculate(): number
 }
 
 // ### 1. Datos del Vehículo
@@ -61,14 +66,24 @@ export interface CarInsurance {
 
 export class CarBuilder implements CarInsurance {
 
-    tipo!: "auto"
-    marca!: string
-    modelo!: string
-    anio!: FactorAnio
-    uso!: FactorUso
-    cilindrada!: FactorCilindrada
-    tipoCombustible!: FactorCombustible
-    seguridad_Alarm!: boolean
+    value!: number
+
+    type!: "auto"
+    brand!: string
+    model!: string
+    year!: FactorAnio
+    usage!: FactorUso
+    engineCapacity!: FactorCilindrada
+    fuelType!: FactorCombustible
+    hasAlarm!: boolean
+
+    setValor(value: number): this {
+        this.value = value
+        return this
+    }
+    getValorAsegurado(): number {
+        return this.value
+    }
 
     obtenerAnio(anio: number): FactorAnio {
         if (anio <= 2000) return '-2000'
@@ -84,48 +99,48 @@ export class CarBuilder implements CarInsurance {
         return 'mas_3000'
     }
 
-    setMarca(marca: string): this {
-        this.marca = marca
+    setBrand(brand: string): this {
+        this.brand = brand
         return this
     }
 
-    setModelo(modelo: string): this {
-        this.modelo = modelo
+    setModel(model: string): this {
+        this.model = model
         return this
     }
 
-    setAnio(anio: number): this {
-        this.anio = this.obtenerAnio(anio)
+    setYear(year: number): this {
+        this.year = this.obtenerAnio(year)
         return this
     }
 
-    setUso(uso: FactorUso): this {
-        this.uso = uso
+    setUsage(usage: FactorUso): this {
+        this.usage = usage
         return this
     }
 
-    setCilindrada(cilindrada: number): this {
-        this.cilindrada = this.obtenerCilindrada(cilindrada)
+    setEngineCapacity(engineCapacity: number): this {
+        this.engineCapacity = this.obtenerCilindrada(engineCapacity)
         return this
     }
 
-    setTipoCombustible(tipoCombustible: FactorCombustible): this {
-        this.tipoCombustible = tipoCombustible
+    setFuelType(fuelType: FactorCombustible): this {
+        this.fuelType = fuelType
         return this
     }
 
-    setSeguridadAlarm(seguridad_Alarm: boolean): this {
-        this.seguridad_Alarm = seguridad_Alarm
+    setHasAlarm(hasAlarm: boolean): this {
+        this.hasAlarm = hasAlarm
         return this
     }
 
-    calcular(): number {
+    calculate(): number {
         let factor = 1.0
-        factor *= FACTOR_ANIO[this.anio] || 1.0
-        factor *= FACTOR_USO[this.uso] || 1.0
-        factor *= FACTOR_CILINDRADA[this.cilindrada] || 1.0
-        factor *= FACTOR_COMBUSTIBLE[this.tipoCombustible] || 1.0
-        if (this.seguridad_Alarm) factor *= 0.95 // Descuento por alarma
+        factor *= FACTOR_ANIO[this.year] || 1.0
+        factor *= FACTOR_USO[this.usage] || 1.0
+        factor *= FACTOR_CILINDRADA[this.engineCapacity] || 1.0
+        factor *= FACTOR_COMBUSTIBLE[this.fuelType] || 1.0
+        if (this.hasAlarm) factor *= 0.95 // Descuento por alarma
         return Math.round(factor * 100) / 100
     }
 

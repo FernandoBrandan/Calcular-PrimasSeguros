@@ -26,7 +26,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "src/use-cases/execBase.tsized.ts", "use-cases/execBase.ts"  ],
   "exclude": [
     "node_modules",
     "dist",

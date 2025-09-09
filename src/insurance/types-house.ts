@@ -3,6 +3,13 @@ export interface ObjetoAseguradoCasa {
     direccion: string
     superficie: number
     construccion: "madera" | "ladrillo" | "hormigon"
+
+    propertyType: string
+    constructionYear: number
+    squareMeters: number
+    material: string
+    securitySystem: boolean
+
 }
 
 // zona
