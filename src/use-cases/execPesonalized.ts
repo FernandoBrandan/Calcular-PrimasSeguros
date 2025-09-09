@@ -1,8 +1,8 @@
-import { BaseBuilder } from '../insurance/types-base'
 import { operatingExpenses, InsuranceType, CoverageLevel } from '../config/config'
-import { CustomerBuilder } from '../insurance/types-customer'
-import { CarBuilder } from '../insurance/types-car'
 import { PrimaBuilder } from '../prima-builder'
+import { CarBuilder } from '../insurance/types-car'
+import { BaseBuilder } from '../insurance/types-base'
+import { CustomerBuilder } from '../insurance/types-customer'
 import { calculateCuotes } from '../services/calculateCuotes'
 
 
