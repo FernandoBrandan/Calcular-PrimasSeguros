@@ -164,7 +164,7 @@ export class CustomerBuilder implements CustomerInsurance {
         factor *= FACTORES_OCUPACION[this.ocupacion] ?? 1.0
         factor *= FACTORES_ANTIGUEDAD[this.antiguedadLicencia] ?? 1.0
         factor *= FACTORES_SINIESTRO[this.siniestros] ?? 1.0
-        factor *= FACTORES_ZONA[this.zonaRiesgo] || 1.0
+        factor *= FACTORES_ZONA[this.zonaRiesgo] ?? 1.0
         return Math.round(factor * 100) / 100
     }
 

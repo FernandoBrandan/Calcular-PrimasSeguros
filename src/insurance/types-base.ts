@@ -1,4 +1,3 @@
-import { recargos, divisores, PaymentFrequency } from '../config/config'
 import { CoverageLevel, FACTORS_TASA_BASE, InsuranceType } from "../config/config"
 
 export interface IOperatingExpenses {
@@ -76,21 +75,6 @@ export class BaseBuilder implements IOperatingExpenses {
     setDivisor(divisor: string): this {
         this.divisor = divisor
         return this
-    }
-
-    // Servicio o clase aparte
-    calculateCuotes(primaAnual: number, paymentFrequency: PaymentFrequency) {
-        const recargo = recargos[paymentFrequency] || 0
-        const primaConRecargo = primaAnual * (1 + recargo)
-        const cantidadCuotas = divisores[paymentFrequency] || 1
-        const valorCuota = primaConRecargo / cantidadCuotas
-        return {
-            paymentFrequency,
-            cantidadCuotas,
-            recargo,
-            primaTotal: primaConRecargo,
-            valorCuota: Math.round(valorCuota * 100) / 100
-        }
     }
 
     build(): BaseBuilder { return this }

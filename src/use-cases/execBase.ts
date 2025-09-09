@@ -3,6 +3,7 @@ import { operatingExpenses, InsuranceType, CoverageLevel } from '../config/confi
 import { CustomerBuilder } from '../insurance/types-customer'
 import { CarBuilder } from '../insurance/types-car'
 import { PrimaBuilder } from '../prima-builder'
+import { calculateCuotes } from '../services/calculateCuotes'
 
 
 export const ejemploCalculoPrima = async () => {
@@ -31,7 +32,7 @@ export const ejemploCalculoPrima = async () => {
         console.log(`Prima anual calculada: $${primaAnual}`)
 
         // Calcular cuotas // Quien la debe calcular ???
-        const cuotasMensual = base.calculateCuotes(primaAnual, 'mensual')
+        const cuotasMensual = calculateCuotes(primaAnual, 'mensual')
         console.log(`Cuotas mensuales: ${cuotasMensual.cantidadCuotas} cuotas de $${cuotasMensual.valorCuota}`)
 
         return {

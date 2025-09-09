@@ -1,17 +1,3 @@
-
-// 5. Factores externalizados
-// config/factores.json
-// Los factores están centralizados y son fáciles de actualizar
-// Los factores están hardcodeados, deberían venir de configuración/BD
-// {
-//     "edad": {
-//         "18-21": 1.8,
-//             "22-25": 1.5
-//     }
-// }
-
-
-
 // Gastos operativos(obligatorios por ley)
 export const operatingExpenses = {
     admin_expenses: 0.12,        // 12 % gastos administrativos

@@ -1,15 +1,8 @@
 import { BaseBuilder } from './insurance/types-base'
 import { CustomerInsurance } from './insurance/types-customer'
 import { CarInsurance } from './insurance/types-car'
-import { ObjetoAseguradoCasa } from './insurance/types-house'
-import { IlifeInsurance } from './insurance/types-life'
 
-// El valor del objeto afectará la prima ???
-
-type InsuredObject =
-    CarInsurance
-// ObjetoAseguradoCasa |
-// IlifeInsurance
+type InsuredObject = CarInsurance // | HomeInsurance | HealthInsurance | LifeInsurance
 
 class Prima {
     constructor(
@@ -57,7 +50,7 @@ export class PrimaBuilder {
         const seal_tax = parseFloat(base.seal_tax) || 0.012
         prima_anual *= (1 + iva + seal_tax)
 
-        return Math.round(prima_anual * 100) / 100 // Redondear a 2 decimales
+        return Math.round(prima_anual * 100) / 100
     }
 
     build(): Prima { return this.prima }
